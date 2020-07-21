@@ -33,18 +33,27 @@ client.on("ready", () => {
 });
 
 
-events.on('createCard', (event, board) => {
-    
-        
-    //let embed = getEmbedBase(event)
-    //    .setTitle(`New card created under __${event.data.list.name}__!`)
-    //    .setDescription(`**CARD:** ${event.data.card.name} — **[CARD LINK](https://trello.com/c/${event.data.card.shortLink})**\n\n**EVENT:** Card created under __${event.data.list.name}__ by **[${conf.realNames ? event.memberCreator.fullName : event.memberCreator.username}](https://trello.com/${event.memberCreator.username})**`)
-    //send(addDiscordUserData(embed, event.memberCreator))
-    
-    //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`test card added ${event.data.card.name}`);
-    
-    console.log(`test card added ${event.data.card.name}`);
-})
+//This gets called when a card is created but unfortunately it also gets called for every pre-existing card.
+//events.on('createCard', (event, board) => {
+//    
+//        
+//    //let embed = getEmbedBase(event)
+//    //    .setTitle(`New card created under __${event.data.list.name}__!`)
+//    //    .setDescription(`**CARD:** ${event.data.card.name} — **[CARD LINK](https://trello.com/c/${event.data.card.shortLink})**\n\n**EVENT:** Card created under __${event.data.list.name}__ by **[${conf.realNames ? event.memberCreator.fullName : event.memberCreator.username}](https://trello.com/${event.memberCreator.username})**`)
+//    //send(addDiscordUserData(embed, event.memberCreator))
+//    
+//    //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`test card added ${event.data.card.name}`);
+//    
+//    console.log(`test card added ${event.data.card.name}`);
+//})
 
+events.on('updateCard', (event, board) => {
+    
+    if (event.data.old.hasOwnProperty("idList"))
+    {
+        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
+    }
+    
+})
 
 client.login(process.env.TOKEN);
