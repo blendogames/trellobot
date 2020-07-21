@@ -5,12 +5,11 @@ const client = new Discord.Client();
 module.exports = {client};
 
 let latestActivityID = 0;
-let pollTime = 1000;
 let started = 0;
 
 const Trello = require('trello-events')
 const events = new Trello({
-    pollFrequency: pollTime, // update time, milliseconds
+    pollFrequency: 60000, // update time, milliseconds
     minId: latestActivityID,
     start: false,
     trello: {
@@ -85,7 +84,6 @@ events.on('maxId', (id) => {
         return;
     
     started = 1;
-    pollTime = 60000;
     
     console.log(`Received maxId message (${id}).`);
     latestActivityID = id;
