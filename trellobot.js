@@ -11,7 +11,7 @@ let started = 0;
 const Trello = require('trello-events')
 const events = new Trello({
     pollFrequency: 2000, // update time, milliseconds
-    minId: 0,
+    minId: latestActivityID,
     start: false,
     trello: {
         boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
@@ -32,7 +32,7 @@ client.on("ready", () => {
     console.log(`Trellobot is ALIVE!  Logged in as ${client.user.tag} at ${now} PT`);
     console.log("\n-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n");
     
-    
+    events.start();
 });
 
 
