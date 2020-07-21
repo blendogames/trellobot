@@ -77,7 +77,7 @@ events.on('maxId', (id) => {
         boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
         key:    process.env.TRELLO_KEY, // your public Trello API key
         token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
-    });
+    }});
     
     events.start();
 })
