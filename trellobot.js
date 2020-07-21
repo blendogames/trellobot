@@ -71,7 +71,7 @@ events.on('updateCard', (event, board) => {
         
         console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${listName} https://trello.com/c/${event.data.card.shortLink}`);
         
-        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`*${event.memberCreator.fullName}* moved card `${event.data.card.name}` to **${listName}** https://trello.com/c/${event.data.card.shortLink}`);
+        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`*${event.memberCreator.fullName}* moved card ${event.data.card.name} to **${listName}** https://trello.com/c/${event.data.card.shortLink}`);
     }
     
 })
