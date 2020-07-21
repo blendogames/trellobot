@@ -41,7 +41,9 @@ events.on('createCard', (event, board) => {
     //    .setDescription(`**CARD:** ${event.data.card.name} — **[CARD LINK](https://trello.com/c/${event.data.card.shortLink})**\n\n**EVENT:** Card created under __${event.data.list.name}__ by **[${conf.realNames ? event.memberCreator.fullName : event.memberCreator.username}](https://trello.com/${event.memberCreator.username})**`)
     //send(addDiscordUserData(embed, event.memberCreator))
     
-    client.channels.get(process.env.ANNOUNCE_CHANNELID).send("test card added ${event.data.card.name}");
+    //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`test card added ${event.data.card.name}`);
+    
+    console.log(`test card added ${event.data.card.name}`);
 })
 
 
