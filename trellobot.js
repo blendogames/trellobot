@@ -57,6 +57,8 @@ events.on('updateCard', (event, board) => {
     if (started <= 0)
         return;
     
+    console.log(`updatecard event.`);
+    
     if (event.data.old.hasOwnProperty("idList"))
     {
         console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
@@ -71,6 +73,7 @@ events.on('maxId', (id) => {
     
     started = 1;
     
+    console.log(`new maxid event ${id}`);
     latestActivityID = id;
     
     //events = new Trello({
