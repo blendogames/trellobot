@@ -4,11 +4,12 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 module.exports = {client};
 
+let started = 0;
 
 const Trello = require('trello-events')
 const events = new Trello({
     pollFrequency: 2000, // update time, milliseconds
-    minId: 0, //Fix????
+    minId: 0,
     start: false,
     trello: {
         boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
@@ -29,7 +30,7 @@ client.on("ready", () => {
     console.log(`Trellobot is ALIVE!  Logged in as ${client.user.tag} at ${now} PT`);
     console.log("\n-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n");
     
-    events.start();
+    
 });
 
 
@@ -49,18 +50,37 @@ client.on("ready", () => {
 //    console.log(`test card added ${event.data.card.name}`);
 //})
 
-//events.on('updateCard', (event, board) => {
-//    
-//    if (event.data.old.hasOwnProperty("idList"))
-//    {
-//        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
-//    }
-//    
-//})
+events.on('updateCard', (event, board) => {
+    
+    if (started <= 0)
+        return;
+    
+    if (event.data.old.hasOwnProperty("idList"))
+    {
+        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
+    }
+    
+})
 
 events.on('maxId', (id) => {
     
-    console.log(`-- new MAX ID  ${id} --`);
+    if (started > 0)
+        return;
+    
+    started = 1;
+    
+    events = new Trello({
+    pollFrequency: 2000, // update time, milliseconds
+    minId: id,
+    start: false,
+    trello: {
+        boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
+        key:    process.env.TRELLO_KEY, // your public Trello API key
+        token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
+    });
+    
+    events.start();
+})
     
 })
 
