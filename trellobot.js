@@ -69,6 +69,7 @@ events.on('maxId', (id) => {
     
     started = 1;
     
+    
     events = new Trello({
     pollFrequency: 2000, // update time, milliseconds
     minId: id,
