@@ -7,11 +7,12 @@ What does it do?
 Environment vars:
 TOKEN = get this from https://discord.com/developers/applications > bot > token > copy
 ANNOUNCE_CHANNELID = the channel id of the channel the bot prints messages in.
-TRELLO_BOARDIDS = the trello board id (https://community.atlassian.com/t5/Trello-questions/How-to-get-Trello-Board-ID/qaq-p/1347525)
+TRELLO_BOARDIDS = the trello board id (it's in the board's URL)
 TRELLO_KEY = your trello key (https://trello.com/1/appKey/generate)
 TRELLO_TOKEN = your trello token (https://trello.com/1/authorize?expiration=never&scope=read&response_type=token&name=Server%20Token&key=YOURTRELLOKEY)
 
 
 Enable these permissions on this bot:
 - Send Messages
+- View Channels
 

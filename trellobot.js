@@ -19,8 +19,6 @@ const events = new Trello({
     } 
 })
 
-const MAX_ENTRYLENGTH   = 150;
-
 client.on("ready", () => {
     
     var date = new Date();    
@@ -35,9 +33,7 @@ client.on("ready", () => {
 });
 
 
-
-
-//This gets called when a card is created but unfortunately it also gets called for every pre-existing card.
+//This gets called when a card is created
 //events.on('createCard', (event, board) => {
 //    
 //        
@@ -51,12 +47,11 @@ client.on("ready", () => {
 //    console.log(`test card added ${event.data.card.name}`);
 //})
 
+
 events.on('updateCard', (event, board) => {
     
     if (started <= 0)
         return;
-    
-    console.log(`updatecard event.`);
     
     if (event.data.old.hasOwnProperty("idList"))
     {
@@ -71,9 +66,6 @@ events.on('updateCard', (event, board) => {
         client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__**${event.data.card.name}**__ moved to **${listName}** - ${event.memberCreator.username}`);
         
         //(https://trello.com/c/${event.data.card.shortLink})
-        
-        
-        //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`*${event.memberCreator.fullName}* moved card ${event.data.card.name} to **${listName}** https://trello.com/c/${event.data.card.shortLink}`);
     }
     
 })
