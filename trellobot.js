@@ -61,7 +61,17 @@ events.on('updateCard', (event, board) => {
     
     if (event.data.old.hasOwnProperty("idList"))
     {
-        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
+        //Trim the list name to its short version.
+        var listName = event.data.listAfter.name;
+        var colonIdx = event.data.listAfter.name.lastIndexOf(":");
+        if (colonIdx >= 0)
+        {
+            listName = listName.substring(0, colonIdx - 1);
+        }        
+        
+        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${listName} https://trello.com/c/${event.data.card.shortLink}`);
+        
+        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`*${event.memberCreator.fullName}* moved card `${event.data.card.name}` to **${listName}** https://trello.com/c/${event.data.card.shortLink}`);
     }
     
 })
@@ -73,20 +83,8 @@ events.on('maxId', (id) => {
     
     started = 1;
     
-    console.log(`new maxid event ${id}`);
-    latestActivityID = id;
-    
-    //events = new Trello({
-    //pollFrequency: 2000, // update time, milliseconds
-    //minId: id,
-    //start: false,
-    //trello: {
-    //    boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
-    //    key:    process.env.TRELLO_KEY, // your public Trello API key
-    //    token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
-    //}});
-    //
-    //events.start();
+    console.log(`Received maxId message (${id}).`);
+    latestActivityID = id;    
 })
 
 client.login(process.env.TOKEN);
