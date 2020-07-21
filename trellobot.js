@@ -4,6 +4,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 module.exports = {client};
 
+let latestActivityID = 0;
+
 let started = 0;
 
 const Trello = require('trello-events')
@@ -69,18 +71,19 @@ events.on('maxId', (id) => {
     
     started = 1;
     
+    latestActivityID = id;
     
-    events = new Trello({
-    pollFrequency: 2000, // update time, milliseconds
-    minId: id,
-    start: false,
-    trello: {
-        boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
-        key:    process.env.TRELLO_KEY, // your public Trello API key
-        token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
-    }});
-    
-    events.start();
+    //events = new Trello({
+    //pollFrequency: 2000, // update time, milliseconds
+    //minId: id,
+    //start: false,
+    //trello: {
+    //    boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
+    //    key:    process.env.TRELLO_KEY, // your public Trello API key
+    //    token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
+    //}});
+    //
+    //events.start();
 })
     
 })
