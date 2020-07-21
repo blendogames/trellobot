@@ -10,7 +10,7 @@ let started = 0;
 
 const Trello = require('trello-events')
 const events = new Trello({
-    pollFrequency: 2000, // update time, milliseconds
+    pollFrequency: 60000, // update time, milliseconds
     minId: latestActivityID,
     start: false,
     trello: {
