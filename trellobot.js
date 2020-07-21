@@ -33,6 +33,8 @@ client.on("ready", () => {
 });
 
 
+
+
 //This gets called when a card is created but unfortunately it also gets called for every pre-existing card.
 //events.on('createCard', (event, board) => {
 //    
@@ -47,12 +49,18 @@ client.on("ready", () => {
 //    console.log(`test card added ${event.data.card.name}`);
 //})
 
-events.on('updateCard', (event, board) => {
+//events.on('updateCard', (event, board) => {
+//    
+//    if (event.data.old.hasOwnProperty("idList"))
+//    {
+//        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
+//    }
+//    
+//})
+
+events.on('maxId', (id) => {
     
-    if (event.data.old.hasOwnProperty("idList"))
-    {
-        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${event.data.listAfter.name}\nhttps://trello.com/c/${event.data.card.shortLink}`);
-    }
+    console.log(`-- new MAX ID  ${id} --`);
     
 })
 
