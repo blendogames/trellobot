@@ -5,12 +5,12 @@ const client = new Discord.Client();
 module.exports = {client};
 
 let latestActivityID = 0;
-
+let pollTime = 1000;
 let started = 0;
 
 const Trello = require('trello-events')
 const events = new Trello({
-    pollFrequency: 60000, // update time, milliseconds
+    pollFrequency: pollTime, // update time, milliseconds
     minId: latestActivityID,
     start: false,
     trello: {
@@ -69,7 +69,7 @@ events.on('updateCard', (event, board) => {
             listName = listName.substring(0, colonIdx );
         }        
         
-        console.log(`__**${event.data.card.name}**__ moved to **${listName}** - ${event.memberCreator.username}`);
+        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__**${event.data.card.name}**__ moved to **${listName}** - ${event.memberCreator.username}`);
         
         //(https://trello.com/c/${event.data.card.shortLink})
         
@@ -85,9 +85,10 @@ events.on('maxId', (id) => {
         return;
     
     started = 1;
+    pollTime = 60000;
     
     console.log(`Received maxId message (${id}).`);
-    latestActivityID = id;    
+    latestActivityID = id;
 })
 
 client.login(process.env.TOKEN);
