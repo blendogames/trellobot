@@ -35,8 +35,7 @@ client.on("ready", () => {
 
 events.on('createCard', (event, board) => {
     
-    if (!eventEnabled(`cardCreated`)) return
-    
+        
     //let embed = getEmbedBase(event)
     //    .setTitle(`New card created under __${event.data.list.name}__!`)
     //    .setDescription(`**CARD:** ${event.data.card.name} — **[CARD LINK](https://trello.com/c/${event.data.card.shortLink})**\n\n**EVENT:** Card created under __${event.data.list.name}__ by **[${conf.realNames ? event.memberCreator.fullName : event.memberCreator.username}](https://trello.com/${event.memberCreator.username})**`)
