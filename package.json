@@ -1,0 +1,12 @@
+{
+  "name": "trellobot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "trellobot.js",
+  "scripts": {
+    "start": "node trellobot.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
