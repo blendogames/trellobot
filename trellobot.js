@@ -69,9 +69,12 @@ events.on('updateCard', (event, board) => {
             listName = listName.substring(0, colonIdx );
         }        
         
-        console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${listName} https://trello.com/c/${event.data.card.shortLink}`);
+        console.log(`__**${event.data.card.name}**__ moved to **${listName}** - ${event.memberCreator.username}`);
         
-        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`*${event.memberCreator.fullName}* moved card ${event.data.card.name} to **${listName}** https://trello.com/c/${event.data.card.shortLink}`);
+        //(https://trello.com/c/${event.data.card.shortLink})
+        
+        
+        //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`*${event.memberCreator.fullName}* moved card ${event.data.card.name} to **${listName}** https://trello.com/c/${event.data.card.shortLink}`);
     }
     
 })
