@@ -85,7 +85,5 @@ events.on('maxId', (id) => {
     //
     //events.start();
 })
-    
-})
 
 client.login(process.env.TOKEN);
