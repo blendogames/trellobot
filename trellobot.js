@@ -66,7 +66,7 @@ events.on('updateCard', (event, board) => {
         var colonIdx = event.data.listAfter.name.lastIndexOf(":");
         if (colonIdx >= 0)
         {
-            listName = listName.substring(0, colonIdx - 1);
+            listName = listName.substring(0, colonIdx );
         }        
         
         console.log(`${event.memberCreator.fullName} moved card ${event.data.card.name} to ${listName} https://trello.com/c/${event.data.card.shortLink}`);
