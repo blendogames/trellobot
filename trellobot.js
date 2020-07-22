@@ -63,7 +63,7 @@ events.on('updateCard', (event, board) => {
             listName = listName.substring(0, colonIdx );
         }        
         
-        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}** - ${event.memberCreator.username}\n*https://trello.com/c/${event.data.card.shortLink}*`);
+        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*mover: ${event.memberCreator.username} | link: https://trello.com/c/${event.data.card.shortLink}*`);
         
         
     }
