@@ -91,7 +91,7 @@ events.on('updateCard', async (event, board) => {
                 for (let i = 0; i < response.idMembers.length; i++)
                 {
                     //await client.channels.get(process.env.DEV_CHANNELID).send("this is a test message....").then(msg => {msg.delete(ERROR_TIMEOUT)}).catch();
-                    await trelloNode.member.search(response.idMembers[i]).then(idResponse =>
+                    trelloNode.member.search(response.idMembers[i]).then(idResponse =>
                     {
                         memberList = memberList + `${idResponse.username} `;
                     });
