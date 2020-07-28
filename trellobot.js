@@ -92,7 +92,7 @@ events.on('updateCard', async (event, board) => {
                 //    memberList = memberList + `${idResponse.username} `;
                 //}
                 
-                if (memberList > 0)
+                if (memberList.length > 0)
                 {
                     //Send the message with all the people assigned to the card.
                     console.log(`success.`);
@@ -117,9 +117,9 @@ async function GetMemberList(response)
     {
         //var idResponse = await trelloNode.member.search(response.idMembers[i])
         //memberList = memberList + `${idResponse.username} `;
-        await trelloNode.member.search(response.idMembers[i]).then(async idResponse =>
+        await trelloNode.member.search(response.idMembers[i]).then(idResponse =>
         {
-            await memberList = memberList + `${idResponse.username} `;
+            memberList = memberList + `${idResponse.username} `;
         });
     }
     
