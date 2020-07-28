@@ -88,19 +88,19 @@ events.on('updateCard', (event, board) => {
                 //Someone is assigned to card. Get member name(s).
                 var memberList = '';
                 
-                console.log(`response.idmembers length ${response.idMembers.length}`);
+                for (let i = 0; i < response.idMembers.length; i++)
+                {
+                    trelloNode.member.search(response.idMembers[i]).then(function (idResponse)
+                    {
+                        console.log(`${i} ${idResponse.username}`);
+                        memberList = memberList + `${idResponse.username}`;
+                    });
+                }
                 
-                //var ids = response.idMembers.split(',');
-                
-                //for (let i = 0; i < ids.length; i++)
-                //{
-                //    ids[i] = ids[i].trim(); //Clean up any whitespace.
-                //    
-                //    trelloNode.member.search(ids[i]).then(function (idResponse)
-                //    {
-                //        console.log(`${i} ${idResponse.username}`);
-                //    });
-                //}
+                if (memberList > 0)
+                {
+                    console.log(`*Assigned to: ${memberList}*`);
+                }
             }
         });
     }
