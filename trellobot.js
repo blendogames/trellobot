@@ -12,7 +12,9 @@ const events = new Trello({
     pollFrequency: 600, // update time, milliseconds
     minId: latestActivityID,
     start: false,
+    members: true,
     trello: {
+        members: true,
         boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
         key:    process.env.TRELLO_KEY, // your public Trello API key
         token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
@@ -65,7 +67,9 @@ events.on('updateCard', (event, board) => {
         
         //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*mover: ${event.memberCreator.username} | link: https://trello.com/c/${event.data.card.shortLink}*`);
         
-        console.log(`name ${event.data.card.name} 22  ${event.data.card.id} `);
+        //event.data.card.id
+        
+        console.log(`name ${event.data.card.name}   mem ${event.data.card.idMembers} mem2 ${event.data.card.idmembers} `);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
     }
     
