@@ -9,7 +9,7 @@ let started = 0;
 
 const Trello = require('trello-events')
 const events = new Trello({
-    pollFrequency: 600, //60000 update time, milliseconds
+    pollFrequency: 60000, //60000 update time, milliseconds
     minId: latestActivityID,
     start: false,
     trello: {
@@ -72,36 +72,21 @@ events.on('updateCard', async (event, board) => {
             if (response.idMembers.length <= 0)
             {
                 //idMembers is empty.  Send the emergency backup.
-                console.log(`idmem is empty.`);
                 client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
             }
             else
             {
                 //Someone is assigned to card. Get member name(s).
-                var memberList = await GetMemberList(response);
-                
-                //for (let i = 0; i < response.idMembers.length; i++)
-                //{
-                //    //await client.channels.get(process.env.DEV_CHANNELID).send("this is a test message....").then(msg => {msg.delete(ERROR_TIMEOUT)}).catch();
-                //    //trelloNode.member.search(response.idMembers[i]).then(idResponse =>
-                //    //{
-                //    //    await memberList = memberList + `${idResponse.username} `;
-                //    //});
-                //    
-                //    var idResponse = await trelloNode.member.search(response.idMembers[i]);
-                //    memberList = memberList + `${idResponse.username} `;
-                //}
-                
+                var memberList = await GetMemberList(response);                
+               
                 if (memberList.length > 0)
                 {
                     //Send the message with all the people assigned to the card.
-                    console.log(`success.`);
                     client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*assigned to: ${memberList} | link: https://trello.com/c/${event.data.card.shortLink}*`);
                 }
                 else
                 {
                     //Emergency backup.
-                    console.log(`memberlist array empty.`);
                     client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
                 }
             }
@@ -109,21 +94,19 @@ events.on('updateCard', async (event, board) => {
     }
 })
 
+//Generate a list of members assigned to the card.
 async function GetMemberList(response)
 {
     var memberList = '';
     
     for (let i = 0; i < response.idMembers.length; i++)
     {
-        //var idResponse = await trelloNode.member.search(response.idMembers[i])
-        //memberList = memberList + `${idResponse.username} `;
         await trelloNode.member.search(response.idMembers[i]).then(idResponse =>
         {
             memberList = memberList + `${idResponse.username} `;
         });
     }
     
-    console.log(`returning memberlist`);
     return memberList;
 }
 
