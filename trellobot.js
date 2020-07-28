@@ -51,7 +51,7 @@ client.on("ready", () => {
 //})
 
 
-events.on('updateCard', (event, board) => {
+events.on('updateCard', async (event, board) => {
     
     if (started <= 0)
         return;
@@ -79,7 +79,8 @@ events.on('updateCard', (event, board) => {
         {
             if (response.idMembers.length <= 0)
             {
-                //idMembers is empty.  Send the emergency backup.              
+                //idMembers is empty.  Send the emergency backup.
+                console.log(`idmem is empty.`);
                 client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
             }
             else
@@ -89,9 +90,8 @@ events.on('updateCard', (event, board) => {
                 
                 for (let i = 0; i < response.idMembers.length; i++)
                 {
-                    trelloNode.member.search(response.idMembers[i]).then(function (idResponse)
+                    await trelloNode.member.search(response.idMembers[i]).then(function (idResponse)
                     {
-                        console.log(`${i} ${idResponse.username}`);
                         memberList = memberList + `${idResponse.username} `;
                     });
                 }
@@ -99,11 +99,13 @@ events.on('updateCard', (event, board) => {
                 if (memberList > 0)
                 {
                     //Send the message with all the people assigned to the card.
+                    console.log(`success.`);
                     client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*assigned to: ${memberList} | link: https://trello.com/c/${event.data.card.shortLink}*`);
                 }
                 else
                 {
                     //Emergency backup.
+                    console.log(`memberlist array empty.`);
                     client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
                 }
             }
