@@ -79,9 +79,8 @@ events.on('updateCard', (event, board) => {
         {
             if (response.idMembers.length <= 0)
             {
-                //idMembers is empty.
-                console.log(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
-                //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
+                //idMembers is empty.  Send the emergency backup.              
+                client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
             }
             else
             {
@@ -93,13 +92,19 @@ events.on('updateCard', (event, board) => {
                     trelloNode.member.search(response.idMembers[i]).then(function (idResponse)
                     {
                         console.log(`${i} ${idResponse.username}`);
-                        memberList = memberList + `${idResponse.username}`;
+                        memberList = memberList + `${idResponse.username} `;
                     });
                 }
                 
                 if (memberList > 0)
                 {
-                    console.log(`*Assigned to: ${memberList}*`);
+                    //Send the message with all the people assigned to the card.
+                    client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*assigned to: ${memberList} | link: https://trello.com/c/${event.data.card.shortLink}*`);
+                }
+                else
+                {
+                    //Emergency backup.
+                    client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
                 }
             }
         });
