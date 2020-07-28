@@ -69,10 +69,9 @@ events.on('updateCard', (event, board) => {
         
         //event.data.card.id
         
-        console.log(`name ${event.data.card.name}   mem ${event.data.card.idMembers} mem2 ${event.data.card.idmembers} `);
+        console.log(`name ${event.data.card.name}   mem ${event.data.old.card.idMembers} mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
     }
-    
 })
 
 events.on('maxId', (id) => {
