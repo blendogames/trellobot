@@ -87,17 +87,20 @@ events.on('updateCard', (event, board) => {
             {
                 //Someone is assigned to card. Get member name(s).
                 var memberList = '';
-                var ids = response.idMembers.split(',');
                 
-                for (let i = 0; i < ids.length; i++)
-                {
-                    ids[i] = ids[i].trim(); //Clean up any whitespace.
-                    
-                    trelloNode.member.search(ids[i]).then(function (idResponse)
-                    {
-                        console.log(`${i} ${idResponse.username}`);
-                    });
-                }
+                console.log(`response.idmembers length ${response.idMembers.length}`);
+                
+                //var ids = response.idMembers.split(',');
+                
+                //for (let i = 0; i < ids.length; i++)
+                //{
+                //    ids[i] = ids[i].trim(); //Clean up any whitespace.
+                //    
+                //    trelloNode.member.search(ids[i]).then(function (idResponse)
+                //    {
+                //        console.log(`${i} ${idResponse.username}`);
+                //    });
+                //}
             }
         });
     }
