@@ -12,9 +12,7 @@ const events = new Trello({
     pollFrequency: 600, // update time, milliseconds
     minId: latestActivityID,
     start: false,
-    members: true,
     trello: {
-        members: true,
         boards: [process.env.TRELLO_BOARDIDS], // array of Trello board IDs 
         key:    process.env.TRELLO_KEY, // your public Trello API key
         token:  process.env.TRELLO_TOKEN // your private Trello token for Trellobot
@@ -69,7 +67,7 @@ events.on('updateCard', (event, board) => {
         
         //event.data.card.id
         
-        console.log(`name ${event.data.card.name}   mem ${event.data.old.card.name} `);//mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
+        console.log(`name ${event.memberCreator.username}    `);//mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
     }
 })
