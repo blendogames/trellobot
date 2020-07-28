@@ -19,6 +19,9 @@ const events = new Trello({
     } 
 })
 
+var trelloNode = require('trello-node-api')(process.env.TRELLO_KEY, process.env.TRELLO_TOKEN);
+
+
 client.on("ready", () => {
     
     var date = new Date();    
@@ -64,15 +67,27 @@ events.on('updateCard', (event, board) => {
         }        
         
         //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*mover: ${event.memberCreator.username} | link: https://trello.com/c/${event.data.card.shortLink}*`);
-        client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
+        //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
         
         //TODO: add 'assigned' members to the message.
         //event.data.card.id        
         
         //mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
+        cardRequest(event.data.card.id);
     }
 })
+
+var cardRequest = function(cardID)
+{
+    Trello.card.search(cardID).then(function (response)
+    {
+        console.log('response ', response);
+    }).catch(function (error)
+    {
+        console.log('error', error);
+    });
+};
 
 events.on('maxId', (id) => {
     
