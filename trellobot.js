@@ -117,10 +117,9 @@ async function GetMemberList(response)
     {
         //var idResponse = await trelloNode.member.search(response.idMembers[i])
         //memberList = memberList + `${idResponse.username} `;
-        await trelloNode.member.search(response.idMembers[i]).then(idResponse =>
+        await trelloNode.member.search(response.idMembers[i]).then(async idResponse =>
         {
-            console.log(`add ${idResponse.username}`);
-            memberList = memberList + `${idResponse.username} `;
+            await memberList = memberList + `${idResponse.username} `;
         });
     }
     
