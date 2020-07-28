@@ -67,7 +67,10 @@ events.on('updateCard', (event, board) => {
         
         //event.data.card.id
         
-        console.log(`name ${event.memberCreator.username}    `);//mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
+        console.log(`name1 ${event.data.card.memberCreator.username}    `);
+        console.log(`name2 ${event.data.memberCreator.username}    `);
+        
+        //mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
     }
 })
