@@ -66,14 +66,6 @@ events.on('updateCard', async (event, board) => {
             listName = listName.substring(0, colonIdx );
         }        
         
-        //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*mover: ${event.memberCreator.username} | link: https://trello.com/c/${event.data.card.shortLink}*`);
-        //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
-        
-        //TODO: add 'assigned' members to the message.
-        //event.data.card.id        
-        
-        //mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
-        //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
         
         trelloNode.card.search(event.data.card.id).then(response =>
         {
@@ -86,19 +78,19 @@ events.on('updateCard', async (event, board) => {
             else
             {
                 //Someone is assigned to card. Get member name(s).
-                var memberList = '';
+                var memberList = await GetMemberList(response);
                 
-                for (let i = 0; i < response.idMembers.length; i++)
-                {
-                    //await client.channels.get(process.env.DEV_CHANNELID).send("this is a test message....").then(msg => {msg.delete(ERROR_TIMEOUT)}).catch();
-                    //trelloNode.member.search(response.idMembers[i]).then(idResponse =>
-                    //{
-                    //    await memberList = memberList + `${idResponse.username} `;
-                    //});
-                    
-                    var idResponse = await trelloNode.member.search(response.idMembers[i]);
-                    memberList = memberList + `${idResponse.username} `;
-                }
+                //for (let i = 0; i < response.idMembers.length; i++)
+                //{
+                //    //await client.channels.get(process.env.DEV_CHANNELID).send("this is a test message....").then(msg => {msg.delete(ERROR_TIMEOUT)}).catch();
+                //    //trelloNode.member.search(response.idMembers[i]).then(idResponse =>
+                //    //{
+                //    //    await memberList = memberList + `${idResponse.username} `;
+                //    //});
+                //    
+                //    var idResponse = await trelloNode.member.search(response.idMembers[i]);
+                //    memberList = memberList + `${idResponse.username} `;
+                //}
                 
                 if (memberList > 0)
                 {
@@ -117,6 +109,16 @@ events.on('updateCard', async (event, board) => {
     }
 })
 
+async function GetMemberList(response)
+{
+    var memberList = '';
+    
+    for (let i = 0; i < response.idMembers.length; i++)
+    {
+    }
+    
+    return '';
+}
 
 
 events.on('maxId', (id) => {
