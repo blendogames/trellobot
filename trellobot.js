@@ -77,7 +77,28 @@ events.on('updateCard', (event, board) => {
         
         trelloNode.card.search(event.data.card.id).then(function (response)
         {
-            console.log(`members: ${response.idMembers}`);
+            if (response.idMembers.length <= 0)
+            {
+                //idMembers is empty.
+                console.log(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
+                //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
+            }
+            else
+            {
+                //Someone is assigned to card. Get member name(s).
+                var memberList = '';
+                var ids = response.idMembers.split(',');
+                
+                for (let i = 0; i < ids.length; i++)
+                {
+                    ids[i] = ids[i].trim(); //Clean up any whitespace.
+                    
+                    trelloNode.member.search(ids[i]).then(function (idResponse)
+                    {
+                        console.log(`${i} ${idResponse.username}`);
+                    });
+                }
+            }
         });
     }
 })
