@@ -65,7 +65,8 @@ events.on('updateCard', (event, board) => {
         
         //client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*mover: ${event.memberCreator.username} | link: https://trello.com/c/${event.data.card.shortLink}*`);
         
-        console.log(`test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}`);
+        console.log(`name ${event.data.card.name} 22  ${event.data.members} 33 ${event.members}`);
+        //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
     }
     
 })
