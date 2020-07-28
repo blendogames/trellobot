@@ -91,10 +91,13 @@ events.on('updateCard', async (event, board) => {
                 for (let i = 0; i < response.idMembers.length; i++)
                 {
                     //await client.channels.get(process.env.DEV_CHANNELID).send("this is a test message....").then(msg => {msg.delete(ERROR_TIMEOUT)}).catch();
-                    trelloNode.member.search(response.idMembers[i]).then(idResponse =>
-                    {
-                        await memberList = memberList + `${idResponse.username} `;
-                    });
+                    //trelloNode.member.search(response.idMembers[i]).then(idResponse =>
+                    //{
+                    //    await memberList = memberList + `${idResponse.username} `;
+                    //});
+                    
+                    var idResponse = await trelloNode.member.search(response.idMembers[i]);
+                    memberList = memberList + `${idResponse.username} `;
                 }
                 
                 if (memberList > 0)
