@@ -67,7 +67,7 @@ events.on('updateCard', async (event, board) => {
         }        
         
         
-        trelloNode.card.search(event.data.card.id).then(response =>
+        trelloNode.card.search(event.data.card.id).then(async response =>
         {
             if (response.idMembers.length <= 0)
             {
