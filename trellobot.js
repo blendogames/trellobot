@@ -75,7 +75,7 @@ events.on('updateCard', async (event, board) => {
         //mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
         
-        await trelloNode.card.search(event.data.card.id).then(response =>
+        trelloNode.card.search(event.data.card.id).then(response =>
         {
             if (response.idMembers.length <= 0)
             {
@@ -117,17 +117,7 @@ events.on('updateCard', async (event, board) => {
     }
 })
 
-function cardRequest(cardID)
-{
-    console.log('start card request');
-    trelloNode.card.search(cardID).then(function (response)
-    {
-        console.log('response ', response);
-    }).catch(function (error)
-    {
-        console.log('error', error);
-    });
-}
+
 
 events.on('maxId', (id) => {
     
