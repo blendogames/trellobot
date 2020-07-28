@@ -78,9 +78,10 @@ events.on('updateCard', (event, board) => {
     }
 })
 
-var cardRequest = function(cardID)
+function cardRequest(cardID)
 {
-    Trello.card.search(cardID).then(function (response)
+    console.log('start card request');
+    trelloNode.card.search(cardID).then(function (response)
     {
         console.log('response ', response);
     }).catch(function (error)
