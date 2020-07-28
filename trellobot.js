@@ -88,7 +88,7 @@ function cardRequest(cardID)
     {
         console.log('error', error);
     });
-};
+}
 
 events.on('maxId', (id) => {
     
