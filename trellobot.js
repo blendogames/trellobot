@@ -75,7 +75,7 @@ events.on('updateCard', async (event, board) => {
         //mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
         
-        trelloNode.card.search(event.data.card.id).then(function (response)
+        await trelloNode.card.search(event.data.card.id).then(function (response)
         {
             if (response.idMembers.length <= 0)
             {
