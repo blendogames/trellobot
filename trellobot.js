@@ -74,7 +74,11 @@ events.on('updateCard', (event, board) => {
         
         //mem2 ${event.data.old.card.idmembers} 3 ${event.data.old.idMembers} 4 ${event.data.old.idmembers}`);
         //test test ${event.data.card.idMembers}  test2 ${event.data.idMembers} test3 ${event.data.card.idmembers} test4 ${event.data.card.members}
-        cardRequest(event.data.card.id);
+        
+        trelloNode.card.search(event.data.card.id).then(function (response)
+        {
+            console.log(`members: ${response.idMembers}`);
+        });
     }
 })
 
