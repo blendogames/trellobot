@@ -72,7 +72,7 @@ events.on('updateCard', async (event, board) => {
             if (response.idMembers.length <= 0)
             {
                 //idMembers is empty.  Send the emergency backup.
-                client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
+                client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}** | *link: https://trello.com/c/${event.data.card.shortLink}*`);
             }
             else
             {
@@ -82,12 +82,12 @@ events.on('updateCard', async (event, board) => {
                 if (memberList.length > 0)
                 {
                     //Send the message with all the people assigned to the card.
-                    client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*assigned to: ${memberList} | link: https://trello.com/c/${event.data.card.shortLink}*`);
+                    client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}** | *assigned to: ${memberList} | https://trello.com/c/${event.data.card.shortLink}*`);
                 }
                 else
                 {
                     //Emergency backup.
-                    client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}**\n*link: https://trello.com/c/${event.data.card.shortLink}*`);
+                    client.channels.get(process.env.ANNOUNCE_CHANNELID).send(`__${event.data.card.name}__ moved to **${listName}** | *https://trello.com/c/${event.data.card.shortLink}*`);
                 }
             }
         });
